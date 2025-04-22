@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Service</title>
+    <!-- Bootstrap CSS -->
+    {% load bootstrap5 %}
+    {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <style>
+        /* Linear gradient background */
+        body {
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+            color: #fff;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .container {
+            margin-top: 100px;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: #182848;
+            margin-bottom: 15px;
+        }
+
+        .card-text {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .btn-danger {
+            background-color: #ff4b5c;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            background-color: #ff1e2d;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Delete Service</h1>
+        <br>
+        <div class="row justify-content-center">
+            {% for service in service %}
+                <div class="col-md-8 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Service Name: {{ service.title }}</h5>
+                            <p class="card-text">{{ service.description }}</p>
+                            <a href="{% url 'delete_service' service.id %}" class="btn btn-danger">Confirm Deletion</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </div>
+</body>
+</html>

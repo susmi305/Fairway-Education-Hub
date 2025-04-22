@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Course</title>
+    {% load bootstrap5 %}
+    {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light background for the entire page */
+            font-family: 'Times New Roman', Times, serif; /* Font for a classic look */
+        }
+        .container {
+            background-color: #ffffff; /* White background for the container */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+            padding: 30px; /* Padding for spacing inside the container */
+            margin: 50px auto; /* Center the container and add margin */
+            max-width: 500px; /* Limit the width of the container */
+        }
+        h2 {
+            font-size: 1.75rem; /* Increase font size for emphasis */
+            margin-bottom: 20px; /* Space below the heading */
+        }
+        .btn {
+            border-radius: 25px; /* Rounded buttons */
+            padding: 10px 20px; /* Button padding */
+            font-size: 1rem; /* Button font size */
+        }
+        .btn-danger {
+            background-color: #dc3545; /* Bootstrap danger button color */
+            border: none; /* Remove border */
+            color: white; /* White text */
+        }
+        .btn-danger:hover {
+            background-color: #c82333; /* Darker shade on hover */
+        }
+        .btn-secondary {
+            background-color: #6c757d; /* Bootstrap secondary button color */
+            border: none; /* Remove border */
+            color: white; /* White text */
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268; /* Darker shade on hover */
+        }
+        hr.styled-hr {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(to right, #007bff, #dc3545);
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <div class="container">
+        <h2>Are you sure you want to delete "{{ course.title }}"?</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+    <title>Fairway Education Hub</title>
+    {% load bootstrap5 %}
+    {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <style>
+        /* Additional custom styles */
+        .navbar-brand img {
+            width: 70px; /* Adjust the width to make the logo larger */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .navbar-brand {
+            color: purple !important;
+            font-weight: 70;
+        }
+        .carousel-container 
+        {
+            max-width: 100%;
+            margin: auto;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: 700px; 
+            object-fit: cover; /* Ensures the image covers the entire area while maintaining aspect ratio */
+        }
+        .card 
+        {
+            width: 100%; /* Ensures the card takes up the full width of the table row */
+            border: 2px solid purple; /* Adds a purple border */
+            border-radius: 8px; /* Rounds the corners to match the border */
+            padding: 10px; /* Adds padding inside the card */
+            box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+            background-color: #F8F4F1;
+        }
+        .form-group button 
+        {
+            background-color: purple;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+        background-color: darkviolet;
+        }
+        .submit-container {
+        text-align: center; /* Centers the button */
+        margin-top: 20px; /* Adds space above the button */
+        }
+        .success-message {
+            color: green;
+            font-weight: bold;
+            margin-top: 1em;
+        }
+        .country-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.country-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 20px;
+}
+
+.country-name {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.country-description {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    font-size: 0.9em;
+}
+
+.country-card:hover .country-description {
+    opacity: 1;
+}
+
+
+        .btn-custom {
+            background-color: #6f42c1;
+            border-color: #6f42c1;
+        }
+        .btn-custom:hover {
+            background-color: #5a2d91;
+            border-color: #5a2d91;
+        }
+
+        .center-button {
+            display: block;
+            margin: 0 auto;
+            margin-top: 1rem;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+        }
+        footer .social-icons a {
+            color: #fff;
+            margin: 0 15px;
+            font-size: 24px;
+            transition: color 0.3s ease;
+        }
+        footer .social-icons a:hover {
+            color: #007bff;
+        }
+
+    </style>
+ 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">  <!-- First Navbar-->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item ms-3">
+                    <h6 style="color: #F8F4F1; padding-right: 500px;"><i>Login and Signup is only for staffs.</i></h6>
+                </li>
+                <li class="nav-item ms-3">
+                    <a class="btn btn-outline-secondary" href="{% url 'login' %}">Log in</a>
+                </li>
+                <li class="nav-item ms-3">
+                    <a class="btn btn-primary me-3" href="{% url 'sign_up' %}">Sign Up</a>
+                </li>
+                
+            </ul>
+        </div>
+    </nav>
+    <nav class="navbar navbar-expand-sm bg-light navbar-light side-navbar sticky-top"> <!-- Second Navbar-->
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <img src="{% static 'images/logos.png' %}" alt="Logo">
+            </a>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav"> <!--Titles -->
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="#Home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand ms-2" href="#Enquiry">Enquiry Now</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand ms-2" href="#Aboutus">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand ms-2" href="#Destination">Destination</a>
+                    </li>                    
+                    <li class="nav-item">
+                        <a class="navbar-brand ms-2" href="#Contact_us">Contact Us</a>
+                    </li>
+                </ul>
+            </div> 
+        </div>
+        <a class="navbar-brand ml-auto" href="#" data-bs-toggle="offcanvas" data-bs-target="#demo" type="button">
+            <img src="{% static 'images/Index_slider.png' %}" alt="options" style="width: 120px; height:auto; padding-left: 80px;" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+        </a>
+    </nav>
+    <div class="offcanvas offcanvas-end" id="demo">
+        <div class="offcanvas-header">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="navbar-brand" href="{% url 'course_list' %}">Courses</a>
+                </li>
+                <hr>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="{% url 'view_folder' %}">Gallery</a>
+                </li>
+                <hr>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="{% url 'view_services' %}">Services</a>
+                </li>
+                <hr>
+            </ul>
+            
+        </div>
+    </div>
+</head>
+<body>
+    <section id ="Home">
+        <div class="carousel-container">
+        <!-- Carousel -->
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <!-- Indicators/dots -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+
+                <!-- The slideshow/carousel -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'images/index_page1.png' %}" class="d-block w-100" alt="options">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'images/index_page3.jpg' %}" class="d-block w-100" alt="options">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'images/index_page3.jpg' %}" class="d-block w-100" alt="options">
+                    </div>
+                </div>
+
+                <!-- Left and right controls/icons -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="Enquiry">
+        <div class="container-fluid">
+            <table style="width:100%; background-color: #F8F4F1 ;">
+                <tr style="width:50%">
+                  <th>
+                    <div class="container sm-2">
+                        <h2>Fairway Education Can Help You</h2>
+                        <hr>
+                        <p>Get some therapy from our professionals by completing your information here, so that they can link you with the correct program, nation, school – and grants too!
+                        </p>
+                        <br>
+                        <div class="table-row">
+                          <div class="card">
+                            <div class="card-body">
+                                <form method="POST">
+                                    {% csrf_token %} 
+                                    <div class="row">
+                                        <div class="col">
+                                            <label> Name: </label>
+                                            <input type="text" class="form-control" name="username" placeholder=" John Doe" required> 
+                                            <br>
+                                        </div>
+                                        <div class="col">
+                                            <label> Adress: </label>
+                                            <input type="text" class="form-control" name="address" placeholder="Baneshwor,Kathmandu" required> 
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label> Email : </label>
+                                            <input type="text" class="form-control" name="user_email" placeholder=" example123@gmail.com" required> 
+                                            <br>
+                                        </div>
+                                        <div class="col">
+                                            <label> Contact: </label>
+                                            <input type="text" class="form-control" name="contact" placeholder=" 9741671108" required> 
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label> Preferred Study Destination : </label>
+                                            <input type="text" class="form-control" name="study_destination" placeholder="USA" required> 
+                                            <br>
+                                        </div>
+                                        <div class="col">
+                                            <label> When do you plan to Study? </label>
+                                            <input type="text" class="form-control" name="studyplan_date" placeholder="2024" required> 
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="counselling_mode">Mode of Counselling:</label>                                        
+                                            <select id="counselling_mode" name="counselling_mode" class="form-control">
+                                                <option value="offline">Offline</option>
+                                                <option value="online">Online</option>
+                                            </select>
+                                            <br>
+                                        </div>
+                                        <div class="col">
+                                            <label> Preferred Study Level: </label>
+                                            <input type="text" class="form-control" name="study_level" placeholder="Bachleors" required> 
+                                            <br>
+                                        </div>
+                                    </div>
+                                     <!-- Checkbox confirmation -->
+                                    <p><input type="checkbox" required> 
+                                        Please contact me by phone, email or SMS to assist with my enquiry and I agree to all terms and conditions.
+                                        I hereby agree to share my information and details with my conset. 
+                                    </p>                                   
+                                    <div class="submit-container">
+                                        <hr>
+                                        <button type="submit" class="btn btn-primary btn-custom center-button">Submit</button>
+                                      </div>
+                                </form>        
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </th>
+                  <th style="width:50%">
+                    <img src="{% static 'images/Enquiry.png' %}" class="d-block w-100" alt="options">
+                  </th>
+                </tr>
+              </table>
+        </div>
+    </section>
+    <section id="Aboutus">
+        <div class="container">
+            <br>
+            <br>
+            <table>
+                <tr>
+                    <td style="text-align: left; padding: 20px;">
+                        <h2>About Fairway Education Hub</h2>
+                        <hr style="border-top: 5px solid darkcyan; width: 35%;">
+                        <br>
+                        <h6 style="letter-spacing: 1px; font-family: 'Times New Roman', Times, serif; text-align: justify;">
+                            Welcome to Fairway Education Hub, your trusted partner in achieving your dreams of studying abroad. At Fairway Education Hub, we specialize in guiding students through the process of pursuing education in top international destinations such as the USA, Canada, the UK, Australia, and more. Our dedicated team of experienced consultants is committed to providing personalized support and expert advice at every step of your journey.
+                            We understand that studying abroad can be a daunting experience, and we are here to make it as smooth as possible. From choosing the right course and university to securing admission and visa, we offer comprehensive assistance. Our goal is to empower you to make informed decisions and achieve your full potential in a globalized world.
+                            Let us be your bridge to international education.
+                        </h6>
+                        <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; padding: 20px;">
+                        <br>
+                        <br>
+                        <h2>Our Mission</h2>
+                        <hr style="border-top: 5px solid blue; width: 15%; margin: 0 auto;">
+                        <br>
+                        <h6 style="text-align: center; letter-spacing: 1px; font-family:'Times New Roman', Times, serif; text-align: justify;">
+                            Our mission is to empower students by offering comprehensive guidance and resources that simplify the complex process of studying abroad. We aim to bridge the gap between students and their desired educational institutions, ensuring a seamless transition to international academic environments. Through personalized counseling, expert advice, and dedicated support, we strive to help students achieve their academic and professional goals. We are committed to providing exceptional service and fostering lifelong relationships with our students.
+                        </h6>
+                        <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <hr>
+                        <h3 style="text-align: center; font-size: x-large; font-family: 'Times New Roman', Times, serif;"><i>Your trusted partner in international education.</i></h3>
+                        <br>
+                    </td>
+                </tr>
+            </table>    
+        </div>
+    </section>
+    <section id="Destination">
+        <div class="container-fluid bg-dark text-white">
+            <br>
+            <h4 style="text-align: left; font-family: Arial, Helvetica, sans-serif;">Future Destinations</h4>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="country-card">
+                        <img src="{% static 'images/australia.jpg' %}" alt="Australia">
+                        <div class="country-name">Australia</div>
+                        <div class="country-description">
+                            Explore the outback, visit the Great Barrier Reef, and experience vibrant cities.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="country-card">
+                        <img src="{% static 'images/india.jpg' %}" alt="India">
+                        <div class="country-name">India</div>
+                        <div class="country-description">
+                            Discover the Taj Mahal, enjoy diverse cultures, and savor spicy cuisines.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="country-card">
+                        <img src="{% static 'images/japan.jpg' %}" alt="Japan">
+                        <div class="country-name">Japan</div>
+                        <div class="country-description">
+                            Experience the cherry blossoms, futuristic cities, and ancient traditions.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="country-card">
+                        <img src="{% static 'images/uk.jpg' %}" alt="UK">
+                        <div class="country-name">UK</div>
+                        <div class="country-description">
+                            Visit historic landmarks, explore London, and enjoy the British countryside.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="country-card">
+                        <img src="{% static 'images/unitedstate.jpg' %}" alt="United States">
+                        <div class="country-name">United States</div>
+                        <div class="country-description">
+                            Discover diverse landscapes, iconic cities, and rich cultural experiences.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="country-card">
+                        <img src="{% static 'images/korea.jpg' %}" alt="South Korea">
+                        <div class="country-name">South Korea</div>
+                        <div class="country-description">
+                            Explore modern Seoul, ancient palaces, and enjoy K-pop culture.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="Contact_us" class="py-5">
+        <section id="Contact_us" class="py-5 bg-light">
+            <!-- Footer -->
+            <footer class="mt-5 p-4 bg-dark text-white text-center container-fluid">
+              <!-- Section: Social media -->
+              <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+                <!-- Left -->
+                <div class="me-5 d-none d-lg-block">
+                  <span>Connect with us on social networks:</span>
+                </div>
+                <!-- Right -->
+                <div>
+                  <a href="https://facebook.com" class="text-white me-4" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                  <a href="https://twitter.com" class="text-white me-4" target="_blank"><i class="fab fa-twitter"></i></a>
+                  <a href="https://instagram.com" class="text-white me-4" target="_blank"><i class="fab fa-instagram"></i></a>
+                  <a href="https://linkedin.com" class="text-white" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+              </section>
+              <!-- Section: Social media -->
+          
+              <!-- Section: Links -->
+              <section>
+                <div class="container text-center text-md-start mt-5">
+                  <!-- Grid row -->
+                  <div class="row mt-3">
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                      <!-- Content -->
+                      <h6 class="text-uppercase fw-bold mb-4">
+                        <i class="fas fa-school me-3"></i>Fairway Education Hub
+                      </h6>            
+                      <p>
+                        Fairway Education Hub is dedicated to providing quality educational resources and opportunities. Connect with us to stay updated on the latest courses and events.
+                      </p>
+                    </div>
+                    <!-- Grid column -->
+          
+                    <!-- Grid column -->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                      <h6 class="text-uppercase fw-bold mb-4">Partner Institutions</h6>
+                      <p>
+                        Institute of Technology
+                      </p>
+                      <p>
+                        Global Learning Academy
+                      </p>
+                      <p>
+                        Advanced Studies Institute
+                      </p>
+                    </div>
+                    <!-- Grid column -->
+          
+                    <!-- Grid column -->
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                      <h6 class="text-uppercase fw-bold mb-4">Contact Us</h6>
+                      <p>
+                        <i class="fas fa-home me-3"></i> 123 Education Lane, City Center, Nepal
+                      </p>
+                      <p>
+                        <i class="fas fa-envelope me-3"></i> info@fairwayeducationhub.com
+                      </p>
+                      <p>
+                        <i class="fas fa-phone me-3"></i> +977 9800000000
+                      </p>
+                      <p>
+                        <i class="fas fa-print me-3"></i> +977 1 234 5678
+                      </p>
+                    </div>
+                    <!-- Grid column -->
+                  </div>
+                  <!-- Grid row -->
+                </div>
+              </section>
+              <!-- Section: Links -->
+          
+              <!-- Copyright -->
+              <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+                © 2024 Fairway Education Hub. All rights reserved.
+              </div>
+              <!-- Copyright -->
+            </footer>
+          </section>
+          
+    </section>
+    
+    
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy2pP4SROQz4C1/89b7R9zwFNHQvW2LgK9OeiJ0" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-VP0xH0K8u0T3B6Dj9J0XkpVJ6KsHg9z2zXxG4PZ7Eg04s1Fu2D85X5qjZjOpd5K5" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-pzjw8f+ua7Kw1TIqSIE00W8zK2Q6aClbCjzj6Im8t1+2e5d7DI2iWkmFQmpPuhL" crossorigin="anonymous"></script>
+    
+</body>
+</html>

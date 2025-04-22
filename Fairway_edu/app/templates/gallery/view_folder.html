@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Folders</title>
+    {% load bootstrap5 %}
+    {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <style>
+        body {
+            background: linear-gradient(135deg, #333333, #4a4a4a); /* Dark gradient background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Professional font */
+            color: #f8f9fa; /* Light text color for contrast */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: #ffffff; /* White background for container */
+            border-radius: 8px; /* Rounded corners for the container */
+            padding: 30px; /* Padding inside the container */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+            margin: 30px auto; /* Centered container with margin */
+            max-width: 1200px; /* Maximum width for the container */
+        }
+        h2 {
+            font-size: 2.5rem; /* Larger font size for heading */
+            color: #333; /* Dark text color */
+            margin-bottom: 20px; /* Space below the heading */
+            text-align: center; /* Centered heading */
+        }
+        .card {
+            background: linear-gradient(135deg, #cdcbe7, #4a4a4a);
+            border: none; /* No border for the card */
+            border-radius: 8px; /* Rounded corners for the card */
+            margin-bottom: 20px; /* Space between cards */
+            overflow: hidden; /* Ensure no content overflows */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow for card */
+            transition: transform 0.2s ease-in-out; /* Smooth scaling on hover */
+        }
+        .card:hover {
+            transform: scale(1.02); /* Slightly enlarge the card on hover */
+        }
+        .card-body {
+            padding: 20px; /* Padding inside the card body */
+        }
+        .card-title {
+            font-size: 1.5rem; /* Font size for card title */
+            color: #333; /* Dark text color */
+            margin-bottom: 10px; /* Space below the title */
+        }
+        .card-text {
+            color: #555; /* Slightly lighter text color */
+        }
+        .card-link {
+            color: #000000; /* Link color */
+            text-decoration: none; /* Remove underline */
+            font-weight: bold; /* Bold text for link */
+        }
+        .card-link:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .col-md-4 {
+            flex: 1 1 calc(33.333% - 20px); /* Three cards per row with margin */
+            margin: 10px; /* Space around cards */
+        }
+    </style>
+</head>
+<body style="font-family: 'Times New Roman', Times, serif;">
+    <div class="container">
+        <h2>Gallery</h2>
+        <div class="row">
+            {% for folder in folders %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">                          
+                            <h5 class="card-title">{{ folder.name }}</h5>
+                            <p class="card-text">{{ folder.description }}</p>
+                            <a href="{% url 'view_picture' folder.id %}" class="card-link">View Pictures</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a class="btn btn-outline-danger" href="{% url 'redirect_based_on_role' %}" style="border-radius: 30px;">Cancel</a>
+    </div>
+</body>
+</html>

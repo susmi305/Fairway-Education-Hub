@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultant Sign Up</title>
+    {% load bootstrap5 %}
+    {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <style>
+        body {
+            background: linear-gradient(to right, #6f42c1, #5a2d91);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            max-width: 450px;
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        .form-control {
+            border-radius: 30px;
+            box-shadow: none;
+            border: 1px solid #CED4DA;
+            padding: 0.75rem;
+            font-size: 1rem;
+        }
+        .form-control:focus {
+            border-color: #6f42c1;
+            box-shadow: 0 0 0 0.2rem rgba(111, 66, 193, 0.25);
+        }
+        .btn-custom {
+            background-color: #6f42c1;
+            border-color: #6f42c1;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        .btn-custom:hover {
+            background-color: #5a2d91;
+            border-color: #5a2d91;
+        }
+        .text-danger {
+            color: #dc3545;
+            font-size: 0.875rem;
+        }
+        .center-button {
+            margin: 1.5rem 0 0 0;
+        }
+        .form-title {
+            margin-bottom: 2rem;
+            font-size: 1.75rem;
+            color: #6f42c1;
+        }
+        .small-logo {
+            max-width: 80px;
+            margin-bottom: 1rem;
+        }
+        .alternative-links a {
+            color: #6f42c1;
+            text-decoration: none;
+            margin: 0 0.5rem;
+            font-size: 0.875rem;
+        }
+        .alternative-links a:hover {
+            text-decoration: underline;
+        }
+        .text-center.mt-3 {
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Consultant Sign Up</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            .container {
+                max-width: 500px;
+                margin: auto;
+                padding: 20px;
+                background-color: #f8f9fa;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                position: relative;
+            }
+            
+            .btn-danger {
+                position: absolute;
+                top: -15px;
+                right: -15px;
+                border-radius: 50%;
+                font-size: 18px;
+                padding: 5px 10px;
+                background-color: red;
+            }
+            
+            .btn-danger a {
+                color: white;
+                text-decoration: none;
+            }
+    
+            .form-title {
+                margin-top: 20px;
+                margin-bottom: 20px;
+                font-size: 24px;
+                font-weight: bold;
+                text-align: center;
+            }
+            
+            .btn-custom {
+                width: 100%;
+                background-color: #6f42c1;
+                color: white;
+            }
+    
+            .alternative-links a {
+                color: #007bff;
+                text-decoration: none;
+            }
+            
+            .alternative-links a:hover {
+                text-decoration: underline;
+            }
+    
+            .small-logo {
+                max-width: 100px;
+            }
+    
+            @media (max-width: 576px) {
+                .container {
+                    padding: 15px;
+                    margin: 20px;
+                }
+    
+                .form-title {
+                    font-size: 20px;
+                }
+    
+                .small-logo {
+                    max-width: 80px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+    
+    <div class="container">
+        <button class="btn-danger" aria-label="Close">
+            <a href="{% url 'index' %}">&times;</a>
+        </button>
+        <div class="text-center mb-4">
+            <img src="{% static 'images/logos.png' %}" alt="Logo" class="img-fluid small-logo">
+        </div>
+        <h3 class="form-title">Sign Up</h3>
+        <hr>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="text-danger">
+                        {% for error in form.username.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="text-danger">
+                        {% for error in form.email.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.bio.label_tag }}
+                {{ form.bio }}
+                {% if form.bio.errors %}
+                    <div class="text-danger">
+                        {% for error in form.bio.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.password1.label_tag }}
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <div class="text-danger">
+                        {% for error in form.password1.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.password2.label_tag }}
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div class="text-danger">
+                        {% for error in form.password2.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            {% if form.non_field_errors %}
+                <div class="text-danger">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary btn-custom center-button">Sign Up</button>
+        </form>
+        <div class="text-center mt-3 alternative-links">
+            <a href="{% url 'login' %}">Already have an account? Log in</a>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+    </html>
+    

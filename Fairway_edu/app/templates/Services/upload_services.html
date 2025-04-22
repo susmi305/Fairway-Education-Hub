@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Upload Services</title>
+        {% load bootstrap5 %}
+        {% load static %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        <style>
+            body {
+                background: linear-gradient(to right, #e0c3fc, #8ec5fc); /* Gradient background */
+                font-family: 'Arial', sans-serif; /* Clean and modern font */
+                margin: 0; /* Remove default margin */
+                padding: 0; /* Remove default padding */
+            }
+            .container {
+                background-color:#ddd; /* White background for the container */
+                border-radius: 10px; /* Rounded corners */
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow for depth */
+                padding: 40px; /* Padding for spacing inside the container */
+                margin: 60px auto; /* Center the container and add margin */
+                max-width: 600px; /* Limit the width of the container */
+                border: 1px solid #ddd; /* Light border */
+            }
+            h2 {
+                font-size: 2.2rem; /* Larger font size for heading */
+                color: #343a40; /* Dark text color */
+                margin-bottom: 20px; /* Space below the heading */
+                text-align: center; /* Center the heading */
+            }
+            .btn-primary {
+                background-color: #007bff; /* Primary button background color */
+                border-color: #007bff; /* Primary button border color */
+                font-size: 1rem; /* Button font size */
+                border-radius: 25px; /* Rounded corners for button */
+                padding: 10px 20px; /* Button padding */
+                transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition */
+            }
+            .btn-primary:hover {
+                background-color: #0056b3; /* Darker shade on hover */
+                border-color: #004085; /* Darker border shade on hover */
+            }
+            form {
+                display: flex;
+                flex-direction: column; /* Arrange form elements in column */
+                gap: 15px; /* Space between form elements */
+            }
+            .form-control {
+                border-radius: 8px; /* Rounded corners for input fields */
+                border: 1px solid #ced4da; /* Light border */
+                padding: 10px; /* Padding inside input fields */
+                font-size: 1rem; /* Font size */
+                box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
+                resize: vertical; /* Allow vertical resizing only for text areas */
+            }
+            .form-control:focus {
+                border-color: #007bff; /* Border color on focus */
+                box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); /* Enhanced shadow on focus */
+            }
+            textarea.form-control {
+                min-height: 100px; /* Minimum height for text areas */
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2 style="font-family: 'Times New Roman', Times, serif;">Upload Services</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary" style="border-radius: 30px;">Create Service</button>
+                <a class="btn btn-outline-danger" href="{% url 'dashboard' %}" style="border-radius: 30px;"> Cancel </a>
+            </form>
+        </div>
+    </body>
+</html>

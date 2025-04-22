@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    {% block content %}
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        
+        .form-title {
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .btn-custom {
+            width: 100%;
+            background-color: #6f42c1;
+            color: white;
+        }
+
+        .alternative-links a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        .alternative-links a:hover {
+            text-decoration: underline;
+        }
+        .btn-danger {
+                position: absolute;
+                border-radius: 50%;
+                font-size: 18px;
+                padding: 5px 10px;
+                background-color: red;
+                top: 35px;
+                right: 560px;
+            }
+            
+            .btn-danger a {
+                color: white;
+                text-decoration: none;
+            }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <button class="btn-danger" aria-label="Close">
+            <a href="{% url 'index' %}">&times;</a>
+        </button>
+        <h3 class="form-title">Login</h3>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+            </div>
+            <button type="submit" class="btn btn-primary btn-custom">Login</button>
+        </form>
+        <div class="text-center mt-3 alternative-links">
+            <a href="{% url 'sign_up' %}">Don't have an account? Sign up</a>
+        </div>
+    
+        {% if messages %}
+            <div class="messages mt-3">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    
+{% endblock %}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

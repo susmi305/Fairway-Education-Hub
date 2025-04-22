@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ folder.name }}</title>
+    {% load bootstrap5 %}
+    {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <style>
+        body {
+            background: linear-gradient(135deg, #f0f9f9, #d0f0f0); /* Light gradient background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Professional font */
+            color: #333; /* Dark text color for contrast */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: #ffffff; /* White background for container */
+            border-radius: 8px; /* Rounded corners for the container */
+            padding: 30px; /* Padding inside the container */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+            margin: 30px auto; /* Centered container with margin */
+            max-width: 1200px; /* Maximum width for the container */
+        }
+        h2 {
+            font-size: 2rem; /* Font size for heading */
+            color: #333; /* Dark text color */
+            margin-bottom: 30px; /* Space below the heading */
+            text-align: center; /* Centered heading */
+        }
+        .card {
+            border: none; /* Remove border */
+            border-radius: 8px; /* Rounded corners for cards */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for cards */
+            transition: transform 0.2s ease-in-out; /* Smooth scaling on hover */
+            margin-bottom: 20px; /* Space between cards */
+            overflow: hidden; /* Ensure content does not overflow */
+        }
+        .card:hover {
+            transform: scale(1.02); /* Slightly enlarge the card on hover */
+        }
+        .card-img-top {
+            width: 100%; /* Make the image fill the card width */
+            height: 200px; /* Fixed height for uniformity */
+            object-fit: cover; /* Cover the area, preserving aspect ratio */
+            border-top-left-radius: 8px; /* Rounded corners for the top of the image */
+            border-top-right-radius: 8px; /* Rounded corners for the top of the image */
+        }
+        .card-body {
+            padding: 15px; /* Padding inside the card body */
+        }
+        .card-title {
+            font-size: 1.25rem; /* Font size for the card title */
+            margin-bottom: 0.5rem; /* Space below the title */
+        }
+        .card-text {
+            font-size: 1rem; /* Font size for the card text */
+        }
+        .btn-secondary {
+            background-color: #6c757d; /* Secondary button color */
+            border-color: #6c757d; /* Border color */
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268; /* Darker shade on hover */
+            border-color: #545b62; /* Darker border color */
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .col-md-4 {
+            flex: 1 0 33%; /* Three cards per row on medium screens and above */
+            max-width: 33%; /* Max width for each card */
+            padding: 0.5rem; /* Padding around each card */
+        }
+    </style>
+</head>
+<body style="font-family: 'Times New Roman', Times, serif;">
+    <div class="container">
+        <h2>Pictures in {{ folder.name }}</h2>
+        <div class="row">
+            {% for picture in pictures %}
+                <div class="col-md-4">
+                    <div class="card">
+                        {% if picture.image %}
+                            <img src="{{ picture.image.url }}" alt="{{ picture.title }}" class="card-img-top img-fluid">
+                        {% else %}
+                            <img src="{% static 'images/placeholder.png' %}" alt="No image available" class="card-img-top img-fluid">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ picture.title }}</h5>
+                            <p class="card-text">{{ picture.description }}</p>
+                        </div>
+                    </div>                    
+                    <hr>
+                    <br>
+                </div>
+            {% empty %}
+                <p>No pictures available.</p>
+            {% endfor %}
+            <a class="btn btn-outline-danger" href="{% url 'view_folder' %}" style="border-radius: 30px;">Cancel</a>
+        </div>
+</body>
+</html>

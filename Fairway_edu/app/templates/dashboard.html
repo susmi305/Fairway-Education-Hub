@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    {% load bootstrap5 %}
+    {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <style>
+        .styled-hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(to right, #BF9ACA, transparent);
+            border-radius: 5px;
+            margin: 0 auto; /* Center the line */
+        }
+
+        /* Style for the course cards */
+        .course-card {
+            border: 1px solid #ddd;
+            border-radius: 15px; /* Slightly larger border radius */
+            padding: 20px; /* Adjust padding for better content fit */
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Slightly deeper shadow for a modern look */
+            background: linear-gradient(to right, #BF9ACA, #ffffff); /* Gradient background */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+            margin: 0 auto; /* Center cards within columns */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effect */
+            padding-right: 50px; 
+        }
+
+        /* Hover effect for the course card */
+        .course-card:hover {
+            transform: translateY(-10px); /* Slight lift effect on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+        }
+
+        /* Additional styling for card title and description */
+        .course-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+
+        }
+
+        .course-description {
+            font-size: 1rem;
+        }
+
+        .card-divider {
+            margin: 20px 0; /* Space above and below the divider */
+            border: none;
+            height: 2px;
+            background: #BF9ACA;
+        }
+
+
+        .course-card {
+            border: 1px solid #ddd;
+            border-radius: 15px; /* Slightly larger border radius */
+            padding: 20px; /* Adjust padding for better content fit */
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Slightly deeper shadow for a modern look */
+            background-color: rgb(148, 222, 136);
+            margin: 0 50px; /* Center cards within columns */
+            margin-left: 50px;
+        }
+
+        /* Additional styling for card title and description */
+    .course-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+        .course-description {
+            font-size: 1rem;
+        }
+
+        .card-divider {
+            margin: 20px 0; /* Space above and below the divider */
+            border: none;
+            height: 2px;
+            background: #BF9ACA;
+        }
+
+
+    </style>
+</head>
+<body style="font-family: 'Times New Roman', Times, serif;">
+    <div class="container-fuild">
+        <div class="container-fuild p-5 my-3 border sticky-top course-card" style="border-radius: 25px; margin-left: 20px; margin-right: 20px; font-family: 'Times New Roman', Times, serif;">
+            <h1>Welcome, {{ username }}!</h1>
+            <p><i>We’re thrilled to have you here. Your leadership and guidance continue to drive our success. Let's make today another great day of progress!</i></p>
+            <hr style="border: none; height: 2px; background: linear-gradient(to right, #BF9ACA); border-radius: 5px; margin: 20px 0;">
+            <a class="btn btn-outline-danger" href="{% url 'logout' %}">Log Out</a>
+        </div>
+        <div class="course-name">
+            <h2 style="padding-left: 100px; font-family:'Times New Roman', Times, serif;"> Courses : </h2>
+        </div>
+        <hr class="styled-hr">
+        <br>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="course-card">
+                    <div class="course-name">View Courses</div>
+                    <div class="course-description">
+                        See all the list of available courses.
+                        <br><hr>
+                        <a class="btn btn-outline-primary" href="{% url 'course_list' %}">View Courses</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="course-card">
+                    <div class="course-name">Add Course</div>
+                    <div class="course-description">
+                        Create a new course for enrollment.
+                        <br><hr>
+                        <a class="btn btn-outline-primary" href="{% url 'course_create' %}">Add Course</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="course-card">
+                    <div class="course-name">Delete Course</div>
+                    <div class="course-description">
+                        Remove course from the catalog.
+                        <br><hr>
+                        <a class="btn btn-outline-danger" href="{% url 'c_delete' %}">Delete Course</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <br>
+        <div class="course-name">
+            <h2 style="padding-left: 100px; font-family:'Times New Roman', Times, serif;"> Gallery : </h2>
+        </div>
+        <hr class="styled-hr">
+        <br>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="course-card">
+                    <div class="course-name">View Gallery </div>
+                    <div class="course-description">
+                        See all the folders of available pictures.
+                        <br><hr>
+                        <a class="btn btn-outline-primary" href="{% url 'view_folder' %}">View Gallery</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="course-card">
+                    <div class="course-name">Add Folders & Pictures</div>
+                    <div class="course-description">
+                        Create new folders for images.
+                        <br><hr>
+                        <a class="btn btn-outline-primary" href="{% url 'create_folder' %}">Create Folder</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="course-card">
+                    <div class="course-name">Delete Folder</div>
+                    <div class="course-description">
+                        Remove Folder and pictures from the catalog.
+                        <br><hr>
+                        <a class="btn btn-outline-danger" href="{% url 'confirm_delete_folder' %}">Delete Folder</a>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+
+    <hr>
+    <br>
+    <div class="course-name">
+        <h2 style="padding-left: 100px; font-family:'Times New Roman', Times, serif;"> Services : </h2>
+    </div>
+    <hr class="styled-hr">
+    <br>
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="course-card">
+                <div class="course-name">View Services </div>
+                <div class="course-description">
+                    See all available services.
+                    <br><hr>
+                    <a class="btn btn-outline-primary" href="{% url 'view_services' %}">View Services</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="course-card">
+                <div class="course-name">Add Services</div>
+                <div class="course-description">
+                    Adds up new Services.
+                    <br><hr>
+                    <a class="btn btn-outline-primary" href="{% url 'upload_services' %}">Create Services</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="course-card">
+                <div class="course-name">Delete Services</div>
+                <div class="course-description">
+                    Remove Services from the catalog.
+                    <br><hr>
+                    <a class="btn btn-outline-danger" href="{% url 'service_del'%}">Delete Services</a>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
+</body>
+</html>

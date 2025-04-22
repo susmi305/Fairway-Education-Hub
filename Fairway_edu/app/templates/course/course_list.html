@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Courses</title>
+    {% load bootstrap5 %}
+    {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <style>
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .course-list {
+            margin: 0 auto;
+            max-width: 800px;
+        }
+        .course-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+        .course-item:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .course-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .course-description {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.5;
+        }
+        .course-actions {
+            margin-top: 20px;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn-delete:hover {
+            background-color: #c82333;
+            text-decoration: none;
+        }
+        .empty-message {
+            text-align: center;
+            color: #888;
+        }
+        hr.styled-hr {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(to right, #007bff, #dc3545);
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <div class="container course-list">
+        <br>
+        <h2 class="mb-4 text-center">Courses {{username}}</h2>
+        <hr class="styled-hr">
+        <div class="list-group">
+            {% for course in courses %}
+                <div class="list-group-item course-item">
+                    <div class="course-title">{{ course.title }}</div>
+                    <div class="course-description">{{ course.description }}</div>
+                </div>
+            {% empty %}
+                <p class="empty-message">No courses available.</p>
+            {% endfor %}
+        </div>
+        <a class="btn btn-outline-danger" href="{% url 'redirect_based_on_role' %}" style="border-radius: 30px;">Cancel</a>
+        <br>
+    </div>
+    {% endblock %}
+</body>
+</html>

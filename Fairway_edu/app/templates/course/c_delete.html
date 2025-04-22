@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Courses</title>
+    {% load bootstrap5 %}
+    {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <style>
+       body {
+            background: linear-gradient(to right, #f8f9fa, #e3e4e8); /* Soft gradient background */
+            font-family: 'Arial', sans-serif; /* Clean and modern font */
+            color: #343a40; /* Dark text color for contrast */
+            padding-top: 20px; /* Space at the top */
+        }
+        .container {
+            background-color: #ffffff; /* White background for the container */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            padding: 30px; /* Padding for spacing inside the container */
+            margin: 0 auto; /* Center the container horizontally */
+            max-width: 900px; /* Limit the width of the container */
+        }
+        h3 {
+            font-size: 2rem; /* Larger font size for heading */
+            color: #495057; /* Dark gray text color */
+            margin-bottom: 20px; /* Space below the heading */
+        }
+        hr.styled-hr {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(to right, #6c757d, #343a40); /* Gradient border color */
+            margin-bottom: 30px; /* Space below the line */
+        }
+        ul {
+            list-style-type: none; /* Remove default list styling */
+            padding-left: 0; /* Remove default padding */
+        }
+        li {
+            border-bottom: 1px solid #dee2e6; /* Light border for list items */
+            padding: 15px 0; /* Padding for each list item */
+            display: flex; /* Flexbox for alignment */
+            justify-content: space-between; /* Space between text and button */
+            align-items: center; /* Center items vertically */
+        }
+        .btn {
+            border-radius: 25px; /* Rounded buttons */
+            padding: 10px 20px; /* Button padding */
+            font-size: 1rem; /* Button font size */
+            text-decoration: none; /* Remove underline from links */
+        }
+        .btn-outline-danger {
+            color: #dc3545; /* Text color for danger button */
+            border-color: #dc3545; /* Border color for danger button */
+        }
+        .btn-outline-danger:hover {
+            background-color: #dc3545; /* Background color on hover */
+            color: white; /* Text color on hover */
+        }
+        .btn-outline-secondary {
+            color: #6c757d; /* Text color for secondary button */
+            border-color: #6c757d; /* Border color for secondary button */
+        }
+        .btn-outline-secondary:hover {
+            background-color: #6c757d; /* Background color on hover */
+            color: white; /* Text color on hover */
+        }
+        .heading-section {
+            margin-bottom: 30px; /* Space below the heading section */
+        }
+        .heading-section h3 {
+            font-size: 2rem; /* Larger font size for heading */
+            color: #495057; /* Dark gray text color */
+            margin-bottom: 20px; /* Space below the heading */
+        }
+        </style>
+    </head>
+    <body>
+        {% block content %}
+        <div class="container">
+            <div class="heading-section sticky-top">
+                <h3>Overall Courses:</h3>
+                <hr class="styled-hr">
+            </div>
+            <ul>
+                {% if courses %}
+                    {% for course in courses %}
+                        <li>
+                            <div>
+                                <strong>{{ course.title }}</strong>
+                                <p>{{ course.description }}</p>
+                            </div>
+                            <a class="btn btn-outline-danger" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" data-course-id="{{ course.id }}">Delete Course</a>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <p>No courses available.</p>
+                {% endif %}
+            </ul>
+            <a class="btn btn-outline-secondary" href="{% url 'dashboard' %}">Cancel</a>
+        </div>
+
+    <!-- Modal Structure -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this course?
+                </div>
+                <div class="modal-footer">
+                    <form method="post" id="delete-form" action="">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript to handle modal actions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var deleteButtons = document.querySelectorAll('[data-bs-target="#deleteModal"]');
+            var deleteForm = document.getElementById('delete-form');
+
+            deleteButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var courseId = this.getAttribute('data-course-id');
+                    deleteForm.action = "{% url 'delete_course' 0 %}".replace('0', courseId);
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+    </body>
+    </html>
+</html>
+

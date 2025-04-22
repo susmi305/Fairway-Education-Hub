@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Pictures</title>
+    {% load bootstrap5 %}
+    {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <style>
+        body {
+            background: linear-gradient(to right, #ffffff, #967969); /* Gradient from white to mint green */
+            font-family: 'Arial', sans-serif; /* Clean font */
+        }
+        .container {
+            background-color: #ffffff; /* White background for the form container */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
+            padding: 30px; /* Padding for the container */
+            margin: 50px auto; /* Center the container */
+            max-width: 800px; /* Max width of the container */
+        }
+        h2 {
+            font-size: 2rem; /* Larger font size for heading */
+            color: #333333; /* Darker text color */
+            margin-bottom: 20px; /* Space below heading */
+            text-align: center; /* Center align the heading */
+            font-weight: bold; /* Bold text for emphasis */
+        }
+        .form-group {
+            margin-bottom: 15px; /* Space between form fields */
+        }
+        .form-control {
+            border-radius: 5px; /* Rounded form fields */
+            border: 1px solid #ced4da; /* Light border */
+            padding: 10px; /* Padding inside form fields */
+        }
+        .btn-primary {
+            background-color: #007bff; /* Primary button color */
+            border-color: #007bff; /* Border color for button */
+            border-radius: 5px; /* Rounded button corners */
+        }
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            border-color: #004085; /* Darker border on hover */
+        }
+    </style>
+</head>
+<body style="font-family: 'Times New Roman', Times, serif;">
+    <div class="container">
+        <h2>Upload Pictures to {{ folder.name }}</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ formset.management_form }}
+            {% for form in formset %}
+                <div class="form-group">
+                    {{ form.as_p }}
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Upload</button>
+            <a class="btn btn-outline-danger" href="{% url 'create_folder' %}">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
